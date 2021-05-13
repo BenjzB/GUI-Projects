@@ -1,7 +1,11 @@
 from tkinter import *
+import random
 
 top = Tk()
 playList = []
+myRolls = []
+rollTimes = 0
+dieType = 0
 
 def results():
     print(playList)
@@ -23,7 +27,7 @@ def mainMenu():
     B1Main = Button(text = "Week 1", bg = "#c6edee", command = week1)
     B1Main.grid(column = 2, row = 2)
     
-    B2Main = Button(text = "Week 2", bg = "#c6edee")
+    B2Main = Button(text = "Week 2", bg = "#c6edee", command = week2)
     B2Main.grid(column = 2, row = 3)
     
     B3Main = Button(text = "Week 3", bg = "#c6edee")
@@ -31,28 +35,6 @@ def mainMenu():
 
     Bclear = Button(text = "Main Menu", bg = "white", command = mainMenu)
     Bclear.grid(column = 3, row = 1)
-
-def week2():
-    clearWindow()
-    L1W2 = Label(top, text = "Dice Roller Program")
-    L1W2.grid(column = 0, row = 1)
-
-    L2W2 = Label(top, text = "How many sides?")
-    L2W2.grid(column = 0, row = 2)
-
-    L3W2 = Label(top, text = "How many rolls?")
-    L3W2.grid(column = 2, row = 2)
-
-    E1W2 = Entry(top, bd = 5)
-    E1W2.grid(column = 0, row = 3)
-
-    E2W2 = Entry(top, bd = 5)
-    E2W2.grid(column = 2, row = 3)
-
-    B1W2 = Button(text = "Roll!", bg = "red", command = week2)
-    B1W2.grid(column = 2, row = 4)
-
-    #to add: roll function and exit button
 
 def week1():
 
@@ -85,6 +67,50 @@ def week1():
     Bclear = Button(text = "Clear Window", bg = "white", command = clearWindow)
     Bclear.grid(column = 3, row = 1)
     """
+    
+def week2():
+    def rollDice():
+        #update our variable data
+        dieType = E1W2.get()
+        rollTimes = E2W2.get()
+        #clear window AFTER pulling Entry data
+        clearWindow()
+        #calculate dice rolls
+        for x in range(0, int(rollTimes)):
+            myRolls.append(random.randint(1, int(dieType)))
+            
+        #display dice rolls and present an exit button
+        L4W2 = Label(top, text = "Here are your rolls!")
+        L4W2.grid(column = 0, row = 1)
+        #this one will use a .format() statement
+        L5W2 = Label(top, text = "{}".format(myRolls))
+        L5W2.grid(column = 0, row = 2)
+        
+        B2W2 = Button(text = "Main Menu", bg = "#2574a8", command = mainMenu)
+        B2W2.grid(column = 0, row = 3)
+            
+    
+    clearWindow()
+    L1W2 = Label(top, text = "Dice Roller Program")
+    L1W2.grid(column = 0, row = 1)
+
+    L2W2 = Label(top, text = "How many sides?")
+    L2W2.grid(column = 0, row = 2)
+
+    L3W2 = Label(top, text = "How many rolls?")
+    L3W2.grid(column = 2, row = 2)
+
+    E1W2 = Entry(top, bd = 5)
+    E1W2.grid(column = 0, row = 3)
+
+    E2W2 = Entry(top, bd = 5)
+    E2W2.grid(column = 2, row = 3)
+
+    B1W2 = Button(text = "Roll!", bg = "#ff0099", command = rollDice)
+    B1W2.grid(column = 2, row = 4)
+
+    #to add: roll function and exit button
+
 
 
 if __name__ == "__main__":
